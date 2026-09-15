@@ -26,7 +26,8 @@ if let heartRate = heartRate {
     hrAverage = (heartRate + oldHR1 + oldHR2 + oldHR3 + oldHR4) / 5
     print(hrAverage)
 } else {
-    print("No heart rate available")
+    hrAverage = (oldHR1 + oldHR2 + oldHR3 + oldHR4) / 4
+    print(hrAverage)
 }
 /*:
  If you didn't unwrap the value of `heartRate`, you've probably noticed that you cannot perform mathematical operations on an optional value. You will first need to unwrap `heartRate`.
