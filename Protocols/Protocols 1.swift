@@ -290,8 +290,7 @@ struct TennisCourt: Reservable {
 
 //        type that conforms to it.
 
-//        Answer:
-//        Playable guarantees that every conforming type has a name and a play() method.
+//Playable guarantees that every conforming type has a name and a play() method.
 
 //
 
