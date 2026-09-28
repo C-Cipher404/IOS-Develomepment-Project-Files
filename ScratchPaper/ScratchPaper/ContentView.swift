@@ -1,43 +1,65 @@
-//
-//  ContentView.swift
-//  ScratchPaper
-//
-//  Created by Cortney Anderson on 9/24/26.
-//
-
 import SwiftUI
-
-enum LibrarySection {
-    case fiction, nonFiction, reference, periodicals
-}
+import Playgrounds
 
 
-enum AgeGroup: Int{
-    case child = 0, teen = 13
-    case adult = 18, senior = 65
-    case awaitingUserInput = "Awating user"
-}
-let grown = AgeGroup(rawValue: 18)
-let thrity = AgeGroup(rawValue: 30)
 
-enum LoadingStatus {
-    case idle, loading, success, failure
+struct ContentView: View {
     
-    
-    var isFinished: Bool{
-        switch self{
-        case .success, .failure:
-            return true
-        case .idle, .loading, .awaitingUserInput:
-            return false
+    var body: some View{
+        
+        NavigationStack{
             
-            var description: String {
-            case .loading:
-            case .idle:
-            case .
+            List{
+                
+                NavigationLink{
+                    SoundScreen()
+                } label: {
+                    Label("Sound", systemImage: "speaker.wave.2.fill")
+                }
+                NavigationLink {
+                    DisplayScreen()
+                } label: {
+                    Label("Display", systemImage: "sun.max.fill")
+                }
+                NavigationLink{
+                    PrivacyScreen()
+                } label: {
+                    Label("Privacy", systemImage: "lock.fill")
+                }
             }
+            .navigationTitle("Settings")
         }
     }
-    
-    var loadingStatus: LoadingStatus = .idle
 }
+
+struct SoundScreen: View {
+    var body: some View{
+        Text("Sound Settings")
+            .navigationTitle("Sound")
+    }
+}
+
+struct DisplayScreen: View{
+    var body: some View{
+        Text("Display Settings")
+            .navigationTitle("Display")
+    }
+}
+
+struct PrivacyScreen: View{
+    var body: some View{
+        Text("Privacy Settings")
+            .navigationTitle("Privacy")
+    }
+}
+
+#Preview {
+    ContentView()
+}
+
+
+
+enum VendingErrors: Error {
+    case outOfStock, notEnoughMoney, invaildSelction, cardLocked
+}
+
