@@ -37,4 +37,18 @@ The computer I use for class is a 14-inch MacBook Pro with an Apple M5 chip. The
  
  My computer is a 14-inch MacBook Pro with an Apple M5 chip. It has 4 performance cores, 6 efficiency cores, a 10-core GPU, and a 16-core Neural Engine. The Neural Engine helps with AI features, like Apple Intelligence and things that can create or understand images. I used Apple’s website to look up the chip information.
 
+ // Systems Archiecture
+
+ 1. File system: Helps coordinate moving things around, like storage to RAM and RAM to the CPU.
+    Hardware: Includes things like the CPU, screen, camera, memory, files, and running programs.
+
+ 2. Your app: Your Swift code.
+    Frameworks: Code Apple wrote, like SwiftUI and Foundation.
+    Operating system: Handles system services.
+    Kernel: The core part of the operating system.
+    Hardware: The chip, RAM, storage, screen, and sensors.
+
+ 3. Compiled: The whole program is turned into machine code before it runs.
+    Interpreted: Another program reads the code and runs it line by line.
+ 
 */
