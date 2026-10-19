@@ -37,6 +37,7 @@ The computer I use for class is a 14-inch MacBook Pro with an Apple M5 chip. The
  
  My computer is a 14-inch MacBook Pro with an Apple M5 chip. It has 4 performance cores, 6 efficiency cores, a 10-core GPU, and a 16-core Neural Engine. The Neural Engine helps with AI features, like Apple Intelligence and things that can create or understand images. I used Apple’s website to look up the chip information.
 
+ 
  // Systems Archiecture
 
  1. File system: Helps coordinate moving things around, like storage to RAM and RAM to the CPU.
@@ -51,4 +52,49 @@ The computer I use for class is a 14-inch MacBook Pro with an Apple M5 chip. The
  3. Compiled: The whole program is turned into machine code before it runs.
     Interpreted: Another program reads the code and runs it line by line.
  
+
+  // Systems Architecture 2
+
+  1. Program vs. Process:
+     A program is the app installed on your phone, like
+     Instagram. A process is when you actually open the
+     app and it's running. When you quit the app, the
+     process stops, but the program stays installed.
+     
+  2. iOS Sandbox:
+     The sandbox keeps apps separated so they can't
+     access everything on your phone. An app can access
+     its own files, but it has to ask permission to use
+     things like your camera or photos.
+
+  3. Threads:
+     A thread is a way for an app to work on different
+     tasks. The operating system spreads threads across
+     available CPU cores so tasks can run at the same
+     time.
+ 
+ 
+  // Systems Architecture 3
+
+  1. Main Thread:
+     The main thread handles what the user sees and
+     interacts with, like buttons, text, and screens.
+     UI updates need to happen on the main thread
+     to keep everything working correctly.
+
+  2. iOS App Lifecycle:
+     An app has four main states: not running,
+     inactive, active, and background. Not running
+     means the app isn't open. Inactive means the
+     app is temporarily not receiving input. Active
+     means you're using the app. Background means
+     the app is no longer on screen but may still
+     be running.
+
+  3. Background Apps:
+     iOS suspends or ends apps to save battery and
+     memory. When an app is suspended, it stays in
+     memory but stops running code. When it's ended,
+     its memory is cleared. 
+
 */
