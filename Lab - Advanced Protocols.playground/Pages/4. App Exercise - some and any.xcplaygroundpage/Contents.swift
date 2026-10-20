@@ -34,7 +34,14 @@ struct Cactus: Plant {
 
 //:  Write a function called `makeStarterPlant()` that returns `some Plant`. It should return a `Fern` named "Starter Fern". Call it, store the result in a constant called `starterPlant`, and print its `name` and `careTip()`.
 
+func makeStarterPlant() -> some Plant {
+    return Fern(name: "Starter Fern")
+}
 
+let starterPlant = makeStarterPlant()
+
+print(starterPlant.name)
+print(starterPlant.careTip())
 
 
 
@@ -49,24 +56,42 @@ struct Cactus: Plant {
 //    }
 //}
 
+func recommendedPlant(forSunnyWindow isSunny: Bool) -> any Plant {
+    if isSunny {
+        return Cactus(name: "Window Cactus")
+    } else {
+        return Fern(name: "Shade Fern")
+    }
+}
+
+let sunnyPlant = recommendedPlant(forSunnyWindow: true)
+let shadyPlant = recommendedPlant(forSunnyWindow: false)
+
+print(sunnyPlant.name)
+print(shadyPlant.name)
 
 //:  In a comment, explain why `some Plant` did not work for `recommendedPlant(forSunnyWindow:)`, and why your fix does.
-
-
-// Answer:
-
-
+// Answer: some Plant didn't work because the function returns two
+// different types, a Cactus or a Fern. Changing it to any Plant
+// works because it allows different types that follow the Plant protocol.
 //:  Create a variable called `plantOfTheWeek` of type `any Plant` and set it to a `Cactus`. Print its name. Then set it to a `Fern` and print its name again. Observe the printout.
 
+var plantOfTheWeek: any Plant = Cactus(name: "Desert Cactus")
 
+print(plantOfTheWeek.name)
+
+plantOfTheWeek = Fern(name: "Kitchen Fern")
+
+print(plantOfTheWeek.name)
 
 
 
 //:  Every SwiftUI view you've written has `var body: some View`. In a comment, explain in your own words why SwiftUI uses `some View` there and not `any View`.
 
-
-// Answer:
-
+// Answer: SwiftUI uses some View because the body returns one
+// specific type of view, even if we don't write out the type.
+// This helps Swift know what view to expect and makes the code
+// more efficient. any View could hold different view types.
 
 /*:
  [Previous](@previous)  |  page 4 of 8  |  [Next: Exercise - Small Protocols](@next)

@@ -6,8 +6,11 @@
  The app now reads a moisture sensor in each pot and gives watering advice. `Int.random(in: 0...100)` stands in for the real sensor. It returns a different number between 0 and 100 each time.
  */
 
+protocol MoistureSensor {
+    func readMoisturePercent(forPlantNamed plantName: String) -> Int
+}
 
-struct LiveMoistureSensor {
+struct LiveMoistureSensor: MoistureSensor {
     func readMoisturePercent(forPlantNamed plantName: String) -> Int {
         print("Reading the sensor in \(plantName)'s pot...")
         return Int.random(in: 0...100)
@@ -15,10 +18,11 @@ struct LiveMoistureSensor {
 }
 
 struct WateringAdvisor {
-    let sensor = LiveMoistureSensor()
+    let sensor: any MoistureSensor
 
     func advice(forPlantNamed plantName: String) -> String {
         let moisturePercent = sensor.readMoisturePercent(forPlantNamed: plantName)
+
         if moisturePercent < 30 {
             return "Water \(plantName) today."
         } else if moisturePercent > 80 {
@@ -29,26 +33,22 @@ struct WateringAdvisor {
     }
 }
 
-let advisor = WateringAdvisor()
+let advisor = WateringAdvisor(sensor: LiveMoistureSensor())
 print(advisor.advice(forPlantNamed: "Fern"))
-
-
 //:  Run the page two or three times. In a comment, explain why you can't know ahead of time what it will print.
 
-
-// Answer:
+// Answer: We can't know what it will print because the sensor
+// generates a random number between 0 and 100 each time.
+// The watering advice can change depending on that number.
 
 
 //:  Write a protocol called `MoistureSensor` with one requirement: a method called `readMoisturePercent(forPlantNamed:)` that takes a `String` and returns an `Int`. Then make `LiveMoistureSensor` conform to it.
 
-
-
+// ^^
 
 
 //:  `WateringAdvisor` builds its own `LiveMoistureSensor`, so it can never use anything else. Change the `sensor` property so its type is `MoistureSensor` and it has no starting value. Because `WateringAdvisor` is a struct, it now gets an initializer that takes a `sensor`. Update the line that creates `advisor` so it passes in a `LiveMoistureSensor()`. Run the page and check that it still works.
-
-
-
+// ^^^
 
 
 //:  The pots also have a backup sensor. Write a struct called `BackupMoistureSensor` that conforms to `MoistureSensor`. Its `readMoisturePercent(forPlantNamed:)` should print that it is reading the backup sensor, then return `Int.random(in: 0...100)`. Create a second `WateringAdvisor` called `backupAdvisor` that uses it, and print its advice for "Basil". You should not need to change `WateringAdvisor` at all.
