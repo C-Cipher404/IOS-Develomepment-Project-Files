@@ -53,7 +53,16 @@ print(advisor.advice(forPlantNamed: "Fern"))
 
 //:  The pots also have a backup sensor. Write a struct called `BackupMoistureSensor` that conforms to `MoistureSensor`. Its `readMoisturePercent(forPlantNamed:)` should print that it is reading the backup sensor, then return `Int.random(in: 0...100)`. Create a second `WateringAdvisor` called `backupAdvisor` that uses it, and print its advice for "Basil". You should not need to change `WateringAdvisor` at all.
 
+struct BackupMoistureSensor: MoistureSensor {
+    func readMoisturePercent(forPlantNamed plantName: String) -> Int {
+        print("Reading backup sensor for \(plantName)")
+        return Int.random(in: 0...100)
+    }
+}
 
+let backupAdvisor = WateringAdvisor(sensor: BackupMoistureSensor())
+
+print(backupAdvisor.advice(forPlantNamed: "Basil"))
 
 
 

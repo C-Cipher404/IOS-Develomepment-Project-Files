@@ -31,28 +31,44 @@ print(liveConverter.euroPriceText(forDollars: 50))
 
 //:  Write a struct called `FakeExchangeRateService` that conforms to `ExchangeRateService`. Give it a property called `rateToReturn` of type `Double`, and have `dollarsPerEuro()` return it.
 
+struct FakeExchangeRateService: ExchangeRateService {
+    let rateToReturn: Double
 
+    func dollarsPerEuro() -> Double {
+        return rateToReturn
+    }
+}
 
 
 
 //:  You're working on how prices look, and you don't want to call the bank on every run. Create a constant called `workingConverter` that is a `PriceConverter` using a `FakeExchangeRateService` with a `rateToReturn` of `2.0`. Before you run it, write in a comment what `euroPriceText(forDollars: 10)` will return. Then print it and check your prediction.
 
 
-// Prediction:
+let workingConverter = PriceConverter(
+    rateService: FakeExchangeRateService(rateToReturn: 2.0)
+)
+
+print(workingConverter.euroPriceText(forDollars: 10))
 
 
 //:  Using fakes, print the euro price for $100 at a rate of `4.0`, and for $9 at a rate of `2.0`. Predict each one in a comment first.
 
+// $100 at 4.0: €25
+let converter1 = PriceConverter(
+    rateService: FakeExchangeRateService(rateToReturn: 4.0)
+)
+print(converter1.euroPriceText(forDollars: 100))
 
-// $100 at 4.0:
-// $9 at 2.0:
+// $9 at 2.0: €4
+let converter2 = PriceConverter(
+    rateService: FakeExchangeRateService(rateToReturn: 2.0)
+)
+print(converter2.euroPriceText(forDollars: 9))
 
 
 //:  $9 at a rate of `2.0` is 4.5 euros. In a comment, explain why the price text doesn't show "€4.5". (Hint: look at what `euroPriceText(forDollars:)` does with `euros` before it builds the text.)
 
-
-// Answer:
-
+// Answer: It doesn’t show €4.5 because `euroPriceText` turns the Double into an `Int`, which removes the decimal part.
 
 /*:
  [Previous](@previous)  |  page 7 of 8  |  [Next: App Exercise - Building With a Fake Sensor](@next)
