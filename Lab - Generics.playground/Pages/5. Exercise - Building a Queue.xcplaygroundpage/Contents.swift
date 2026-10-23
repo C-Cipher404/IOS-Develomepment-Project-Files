@@ -13,27 +13,56 @@
  (Hint: check `items.isEmpty` before calling `items.removeFirst()`, because `removeFirst()` crashes on an empty array.)
  */
 
+struct Queue<Element> {
+    private var items: [Element] = []
 
+    mutating func enqueue(_ item: Element) {
+        items.append(item)
+    }
+
+    mutating func dequeue() -> Element? {
+        if items.isEmpty {
+            return nil
+        }
+        return items.removeFirst()
+    }
+
+    func peek() -> Element? {
+        return items.first
+    }
+
+    var count: Int {
+        return items.count
+    }
+}
 
 
 
 //:  Create a `Queue<Int>` called `numberQueue` and enqueue `1`, `2` and `3`.
 
+var numberQueue = Queue<Int>()
 
+numberQueue.enqueue(1)
+numberQueue.enqueue(2)
+numberQueue.enqueue(3)
 
 
 
 //:  Before you go on, write two things in a comment: the order the three numbers will come out of `numberQueue`, and the order they would come out of a stack. Then dequeue all three and print each one, and check your prediction. (Hint: `dequeue()` returns an optional, so print it with `?? 0`.)
+// Prediction: The queue will return 1, 2, 3 because it removes
+// the first item added. A stack would return 3, 2, 1 because
+// it removes the last item added first.
 
-
-// Prediction:
+print(numberQueue.dequeue() ?? 0)
+print(numberQueue.dequeue() ?? 0)
+print(numberQueue.dequeue() ?? 0)
 
 
 //:  Try to enqueue the string `"four"` onto `numberQueue`. Read the error, then delete that line. In a comment, explain what the error is telling you.
 
-
-// Answer:
-
+// Answer: The error means numberQueue can only hold Int values.
+// "four" is a String, not an Int, so Swift won't let me add it.
+// I can only add whole numbers to this queue.
 
 /*:
  An extension can add a method to a generic type. A `where` clause on the extension limits it to some types.
@@ -42,24 +71,41 @@
  */
 
 
-
+extension Queue where Element: Equatable {
+    func contains(_ item: Element) -> Bool {
+        return items.contains(item)
+    }
+}
 
 
 //:  Create a `Queue<String>` of three names, including `"Cal"`. Print whether it contains `"Cal"`, then whether it contains a name you didn't add.
 
+var nameQueue = Queue<String>()
 
+nameQueue.enqueue("Alice")
+nameQueue.enqueue("Cal")
+nameQueue.enqueue("Bob")
+
+print(nameQueue.contains("Cal"))
+print(nameQueue.contains("David"))
 
 
 
 //:  Here is a struct that isn't `Equatable`. Create a `Queue<Song>`, enqueue a song, and try calling `contains(_:)` on it. Read the error. Then make `Song` conform to `Equatable` and run it again. In a comment, explain why the error went away.
-
-
-struct Song {
+struct Song: Equatable {
     let title: String
     let artist: String
 }
 
-// Answer:
+var songQueue = Queue<Song>()
+
+songQueue.enqueue(Song(title: "Love Story", artist: "Taylor Swift"))
+
+print(songQueue.contains(Song(title: "Love Story", artist: "Taylor Swift")))
+
+// Answer: The error happened because Song didn't follow the
+// Equatable protocol. The contains function needs Equatable
+// to compare items. Adding Equatable to Song fixed the error.
 
 
 /*:

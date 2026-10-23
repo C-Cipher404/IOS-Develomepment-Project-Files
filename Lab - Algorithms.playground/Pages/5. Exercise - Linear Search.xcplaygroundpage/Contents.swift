@@ -9,36 +9,22 @@
 
 let songTitles = ["Late Bus Home", "Coffee at Noon", "Static Summer", "Paper Lanterns", "Back Porch Blues", "Rooftop Radio", "Slow Motion Sunday", "City of Glass"]
 
-func linearSearch(for targetTitle: String, in titles: [String]) -> Int? {
-    var checks = 0
-    for (index, title) in titles.enumerated() {
-        checks += 1
-        if title == targetTitle {
-            // Add the "found" print here
-            return index
-        }
-    }
-    // Add the "not found" print here
-    return nil
-}
+//func linearSearch(for targetTitle: String, in titles: [String]) -> Int? {
+//    var checks = 0
+//    for (index, title) in titles.enumerated() {
+//        checks += 1
+//        if title == targetTitle {
+//            // Add the "found" print here
+//            return index
+//        }
+//    }
+//    // Add the "not found" print here
+//    return nil
+//}
 
 
 //:  Add two lines to `linearSearch`. On the line that says `// Add the "found" print here`, add `print("Found \(targetTitle) after \(checks) checks")`. On the line that says `// Add the "not found" print here`, add `print("\(targetTitle) not found after \(checks) checks")`.
 func linearSearch(for targetTitle: String, in titles: [String]) -> Int? {
-    var checks = 0
-
-    for (index, title) in titles.enumerated() {
-        checks += 1
-
-        if title == targetTitle {
-            print("Found \(targetTitle) after \(checks) checks")
-            return index
-        }
-    }
-
-    print("\(targetTitle) not found after \(checks) checks")
-    return nil
-}func linearSearch(for targetTitle: String, in titles: [String]) -> Int? {
     var checks = 0
 
     for (index, title) in titles.enumerated() {

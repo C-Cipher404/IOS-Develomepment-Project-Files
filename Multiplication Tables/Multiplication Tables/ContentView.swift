@@ -19,6 +19,12 @@ struct ContentView: View {
     @State private var gameStarted = false
     @State private var gameFinished = false
 
+    let limeGreen = Color(
+        red: 0.75,
+        green: 1.0,
+        blue: 0.15
+    )
+
     var body: some View {
         NavigationStack {
             if gameFinished {
@@ -32,89 +38,175 @@ struct ContentView: View {
     }
 
     var settingsView: some View {
-        Form {
-            Section("Times Tables") {
-                Picker("Times Table", selection: $selectedTable) {
-                    ForEach(2...12, id: \.self) { number in
-                        Text("\(number) times table")
+        ZStack {
+            LinearGradient(
+                colors: [.pink, .teal],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+
+            VStack(spacing: 25) {
+                Text("✖️ Multiplication Tables")
+                    .font(.largeTitle)
+                    .bold()
+                    .foregroundStyle(.white)
+
+                Text("Choose your challenge!")
+                    .font(.title3)
+                    .foregroundStyle(.white)
+
+                VStack(spacing: 20) {
+                    Text("Which times table?")
+                        .font(.headline)
+
+                    Picker("Times Table", selection: $selectedTable) {
+                        ForEach(2...12, id: \.self) { number in
+                            Text("\(number) times table")
+                        }
                     }
-                }
-            }
+                    .pickerStyle(.menu)
 
-            Section("Number of Questions") {
-                Picker("Questions", selection: $questionCount) {
-                    Text("5").tag(5)
-                    Text("10").tag(10)
-                    Text("20").tag(20)
-                }
-                .pickerStyle(.segmented)
-            }
+                    Divider()
 
-            Button("Start Game") {
-                startGame()
+                    Text("How many questions?")
+                        .font(.headline)
+
+                    Picker("Questions", selection: $questionCount) {
+                        Text("5").tag(5)
+                        Text("10").tag(10)
+                        Text("20").tag(20)
+                    }
+                    .pickerStyle(.segmented)
+                }
+                .padding()
+                .background(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .padding(.horizontal)
+
+                Button {
+                    startGame()
+                } label: {
+                    Text("Start Game  ")
+                        .font(.headline)
+                        .foregroundStyle(.black)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(limeGreen)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                }
+                .padding(.horizontal)
+
+                Spacer()
             }
+            .padding(.top)
         }
-        .navigationTitle("Multiplication Tables")
     }
 
     var gameView: some View {
-        VStack(spacing: 30) {
-            Text("Question \(currentQuestion + 1) of \(questions.count)")
-                .font(.headline)
-
-            Text(
-                "\(questions[currentQuestion].firstNumber) × \(questions[currentQuestion].secondNumber)"
+        ZStack {
+            LinearGradient(
+                colors: [.pink, .teal],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
             )
-            .font(.system(size: 48))
-            .bold()
+            .ignoresSafeArea()
 
-            TextField("Enter answer", text: $answerText)
-                .keyboardType(.numberPad)
-                .textFieldStyle(.roundedBorder)
+            VStack(spacing: 28) {
+                Text("Question \(currentQuestion + 1) of \(questions.count)")
+                    .font(.headline)
+                    .foregroundStyle(.white)
+
+                Text("Score: \(score) ⭐️")
+                    .font(.title3)
+                    .bold()
+                    .foregroundStyle(.white)
+
+                VStack(spacing: 22) {
+                    Text(
+                        "\(questions[currentQuestion].firstNumber) × \(questions[currentQuestion].secondNumber)"
+                    )
+                    .font(.system(size: 64))
+                    .bold()
+
+                    TextField("Your answer", text: $answerText)
+                        .keyboardType(.numberPad)
+                        .textFieldStyle(.roundedBorder)
+                        .font(.title2)
+
+                    Button {
+                        checkAnswer()
+                    } label: {
+                        Text("Submit Answer ✅")
+                            .font(.headline)
+                            .foregroundStyle(.black)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(limeGreen)
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                    }
+                }
+                .padding()
+                .background(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 24))
+                .shadow(radius: 5)
                 .padding(.horizontal)
 
-            Button("Submit Answer") {
-                checkAnswer()
+                Button("Back to Settings") {
+                    gameStarted = false
+                    gameFinished = false
+                    answerText = ""
+                }
+                .foregroundStyle(.white)
+
+                Spacer()
             }
-            .buttonStyle(.borderedProminent)
-
-            Text("Score: \(score)")
-                .font(.headline)
-
-            Button("Back to Settings") {
-                gameStarted = false
-                gameFinished = false
-                answerText = ""
-            }
-
-            Spacer()
+            .padding(.top)
         }
-        .padding()
         .navigationTitle("Practice")
     }
 
     var resultsView: some View {
-        VStack(spacing: 25) {
-            Text("Game Over")
-                .font(.largeTitle)
-                .bold()
+        ZStack {
+            LinearGradient(
+                colors: [.pink, .teal],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
 
-            Text("Your Score")
-                .font(.title2)
+            VStack(spacing: 25) {
+                Text("🎉 Great Job!")
+                    .font(.largeTitle)
+                    .bold()
+                    .foregroundStyle(.white)
 
-            Text("\(score) / \(questions.count)")
-                .font(.system(size: 50))
-                .bold()
+                Text("Your Score")
+                    .font(.title2)
+                    .foregroundStyle(.white)
 
-            Button("Play Again") {
-                gameStarted = false
-                gameFinished = false
-                answerText = ""
+                Text("\(score) / \(questions.count)")
+                    .font(.system(size: 60))
+                    .bold()
+                    .foregroundStyle(.white)
+
+                Button {
+                    gameStarted = false
+                    gameFinished = false
+                    answerText = ""
+                } label: {
+                    Text("Play Again 🔄")
+                        .font(.headline)
+                        .foregroundStyle(.black)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(limeGreen)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                }
+                .padding(.horizontal)
             }
-            .buttonStyle(.borderedProminent)
+            .padding()
         }
-        .padding()
-        .navigationTitle("Results")
     }
 
     func startGame() {
