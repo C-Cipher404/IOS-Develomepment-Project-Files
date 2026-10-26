@@ -87,7 +87,7 @@ struct ContentView: View {
                 Button {
                     startGame()
                 } label: {
-                    Text("Start Game  ")
+                    Text("Start Game 40 ")
                         .font(.headline)
                         .foregroundStyle(.black)
                         .frame(maxWidth: .infinity)
